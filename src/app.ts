@@ -3,7 +3,6 @@ import express from 'express';
 import userRouter from './router/routes.router';
 import connectDB from './db/connect.db';
 import cookieParser from 'cookie-parser';
-import { sessionMiddleware } from './utils/sessionConfig';
 
 const app = express();
 dotenv.config()
@@ -12,7 +11,6 @@ const port = process.env.PORT;
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use(sessionMiddleware);
 
 app.use('/api/v1/users', userRouter);
 

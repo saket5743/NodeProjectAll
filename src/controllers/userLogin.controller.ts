@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import User from "../models/users.models";
-import { BOOL_TRUE, CODE_200, CODE_201, CODE_400, CODE_401, CODE_404, CODE_500, ERR_FOUND, ERR_LOG_OUT, INVLD_CRED, LOG_IN, LOGOUT_FAILED, LOGOUT_SUCCESSFULLY, NOT_LOG_IN, UNKN_ERROR, USER_ALRDY_EXT, USER_CRT, USER_NOT_CRT, USER_NOT_FOUND } from "../utils/constants";
+import { BOOL_TRUE, CODE_200, CODE_201, CODE_400, INVLD_CRED, LOG_IN, LOGOUT_SUCCESSFULLY, NOT_LOG_IN, USER_CRT, USER_NOT_CRT, USER_NOT_FOUND } from "../utils/constants";
 import ApiError from "../errors/ApiError";
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
