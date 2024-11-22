@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 interface IUser {
   username: string,
   email: string,
-  password: string
+  password: string,
+  referrerId: string
+
 }
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -18,6 +20,11 @@ const userSchema = new mongoose.Schema<IUser>({
   password: {
     type: String,
     required: true
+  },
+  referrerId: {
+    type: String,
+    required: true,
+    unique: true
   }
 })
 

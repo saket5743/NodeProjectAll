@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/users.models";
-import { BOOL_TRUE, CODE_200, CODE_201, CODE_400, INVLD_CRED, LOG_IN, LOGOUT_SUCCESSFULLY, NOT_LOG_IN, USER_CRT, USER_NOT_CRT, USER_NOT_FOUND } from "../utils/constants";
+import { BOOL_TRUE, CODE_200, CODE_201, CODE_400, INVLD_CRED, INVLD_REFERRER_CODE, LOG_IN, LOGOUT_SUCCESSFULLY, NOT_LOG_IN, USER_CRT, USER_NOT_CRT, USER_NOT_FOUND } from "../utils/constants";
 import ApiError from "../errors/ApiError";
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -11,25 +11,33 @@ dotenv.config();
 interface IUserLogin {
   username: string,
   email: string,
-  password: string,
-  message?: string
+  password: string
 }
+
+// Code Generater
+const generateUniqueReferralCode = (username: string): string => {
+  return `${username}-${Date.now().toString(12)}`;
+};
 
 // Register
 export const register = async (req: Request, res: Response): Promise<void> => {
-  console.log("register controller called ");
 
   const { username, email, password }: IUserLogin = req.body;
   try {
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    const userCr = await User.create({ username, email, password: hashedPassword });
+
+    const referrerId = generateUniqueReferralCode(username);
+
+    const userCr = await User.create({ username, email, password: hashedPassword, referrerId });
     res.status(CODE_201).json(new ApiResponse(CODE_201, userCr, USER_CRT, BOOL_TRUE))
   }
   catch (error) {
     res.status(CODE_400).json(new ApiError(USER_NOT_CRT, CODE_400))
   }
 }
+
 
 // Login
 export const login = async (req: Request, res: Response): Promise<void> => {
@@ -49,6 +57,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 }
 
+// Logout
 export const logout = (req: Request, res: Response) => {
   res.clearCookie("token").status(CODE_200).json(new ApiResponse(CODE_200, {}, LOGOUT_SUCCESSFULLY, BOOL_TRUE));
 }

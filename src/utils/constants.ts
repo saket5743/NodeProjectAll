@@ -5,6 +5,7 @@ export const USER_CRT: string = 'User Created';
 export const USER_NOT_CRT: string = 'User Not Created';
 export const INVLD_CRED: string = 'Invalid Credentials';
 export const INVLD_TOKEN: string = 'Invalid Token';
+export const INVLD_REFERRER_CODE: string = "Invalid Referral Code";
 export const LOG_IN: string = 'Logged In';
 export const NOT_LOG_IN: string = 'Not Logged In';
 export const ERR_LOG_OUT: string = 'Error logging out';
