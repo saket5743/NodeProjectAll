@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express';
 import userRouter from './router/routes.router';
+import categoryRouter from './router/category.router';
 import connectDB from './db/connect.db';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
@@ -22,6 +23,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/category', categoryRouter);
 
 const start = async () => {
   await connectDB(process.env.MONGO_URL as string);
