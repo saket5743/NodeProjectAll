@@ -30,6 +30,8 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/mongoose": "^5.11.97",
     "@types/nodemon": "^1.19.6",
+    "@types/passport": "^1.0.17",
+    "@types/passport-local": "^1.0.38",
     "@types/uuid": "^10.0.0",
     "bcrypt": "^5.1.1",
     "connect-mongo": "^5.1.0",
@@ -40,6 +42,8 @@
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "typescript-cookie": "^1.0.6",
     "uuid": "^11.0.3"
   }

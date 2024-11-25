@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import ApiResponse from "../errors/ApiResponseCode";
+import passport from "passport";
 dotenv.config();
 
 interface IUserLogin {
@@ -14,7 +15,7 @@ interface IUserLogin {
   password: string
 }
 
-// Code Generater
+// Code Generator
 const generateUniqueReferralCode = (username: string): string => {
   return `${username}-${Date.now().toString(12)}`;
 };
@@ -43,7 +44,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 export const login = async (req: Request, res: Response): Promise<void> => {
   const { username, email, password }: IUserLogin = req.body;
   try {
+
     const user = await User.findOne({ email });
+
     if (!user) res.status(CODE_400).json(new ApiError(USER_NOT_FOUND, CODE_400));
 
     const isMatch = await bcrypt.compare(password, user!.password);
@@ -51,8 +54,10 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
     const token = jwt.sign({ id: user!._id, username: user!.username, email: user!.email }, process.env.JWTSECRET as string, { expiresIn: "1h" });
     res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+    passport.authenticate("local", { failureRedirect: "/register" })
     res.status(CODE_201).json(new ApiResponse(CODE_201, user, LOG_IN, BOOL_TRUE))
   } catch (error) {
+    console.log(error)
     res.status(CODE_400).json(new ApiError(NOT_LOG_IN, CODE_400));
   }
 }
