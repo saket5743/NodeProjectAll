@@ -27,7 +27,7 @@ export const categoryAll = asyncWrapper(async (req: Request, res: Response) => {
   if (!category) {
     return res.json(new ApiError(NOT_FOUND, CODE_404))
   }
-  res.status(CODE_200).json(new ApiResponse(CODE_200, category, SUCCESS, BOOL_TRUE))
+  return res.status(CODE_200).json(new ApiResponse(CODE_200, category, SUCCESS, BOOL_TRUE))
 })
 
 // Get by id
@@ -37,7 +37,7 @@ export const categoryById = asyncWrapper(async (req: Request, res: Response) => 
   if (!category) {
     return res.json(new ApiError(NOT_FOUND, CODE_404))
   }
-  res.status(CODE_200).json(new ApiResponse(CODE_200, category, SUCCESS, BOOL_TRUE))
+  return res.status(CODE_200).json(new ApiResponse(CODE_200, category, SUCCESS, BOOL_TRUE))
 })
 
 // Update by id
@@ -51,7 +51,7 @@ export const categoryUpdate = asyncWrapper(async (req: Request, res: Response) =
   if (!category) {
     return res.json(new ApiError(NOT_FOUND, CODE_404))
   }
-  res.json(new ApiResponse(CODE_200, category, UPDATED, BOOL_TRUE))
+  return res.json(new ApiResponse(CODE_200, category, UPDATED, BOOL_TRUE))
 })
 
 
@@ -62,5 +62,5 @@ export const categoryDelete = asyncWrapper(async (req: Request, res: Response) =
   if (!category) {
     return res.json(new ApiError(NOT_FOUND, CODE_404))
   }
-  res.status(CODE_200).json(new ApiResponse(CODE_200, category, SUCCESS, BOOL_TRUE))
+  return res.status(CODE_200).json(new ApiResponse(CODE_200, category, SUCCESS, BOOL_TRUE))
 })
